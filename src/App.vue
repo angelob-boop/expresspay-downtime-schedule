@@ -1,8 +1,9 @@
 <script setup>
-import { onBeforeUnmount, ref } from 'vue'
+import { onBeforeUnmount, ref, watch } from 'vue'
 import { DOWNTIME } from './config.js'
 import { formatTime, getState } from './countdown.js'
 import { fetchServerClock } from './serverTime.js'
+import { waitForPortal } from './portalPoll.js'
 
 const startText = formatTime(DOWNTIME.start)
 const endText = formatTime(DOWNTIME.end)
@@ -25,6 +26,16 @@ fetchServerClock()
     state.value = { phase: 'unknown' }
   })
 onBeforeUnmount(() => clearInterval(timer))
+
+// Once the window is over (or time is unknown), reload the same URL as soon as the portal is back.
+watch(
+  () => state.value.phase,
+  (phase, prev) => {
+    if (phase !== 'down' && phase !== 'loading' && (prev === 'down' || prev === 'loading')) {
+      waitForPortal(location.href).then(() => location.reload())
+    }
+  },
+)
 
 const units = [
   ['h', 'Hours'],
@@ -66,19 +77,13 @@ const units = [
       </template>
 
       <template v-else-if="loadedDuringDowntime">
-        <h1 class="mt-8 font-heading text-2xl font-bold text-panatag">We're back</h1>
-        <p class="mt-2 text-sm">Maintenance is finished. Thanks for waiting.</p>
-        <a href="/" class="mt-8 flex min-h-12 items-center justify-center rounded-xl bg-serbisyo font-heading font-bold text-white hover:bg-[#c91d2c]">
-          Go to portal
-        </a>
+        <h1 class="mt-8 font-heading text-2xl font-bold text-panatag">Almost back</h1>
+        <p class="mt-2 text-sm">Finishing up. The portal will open automatically.</p>
       </template>
 
       <template v-else-if="state.phase !== 'loading'">
         <h1 class="mt-8 font-heading text-2xl font-bold text-panatag">Temporarily unavailable</h1>
-        <p class="mt-2 text-sm">Please try again shortly.</p>
-        <p v-if="state.phase === 'unknown'" class="mt-2 text-sm">
-          Nightly maintenance runs {{ startText }} – {{ endText }} (Philippine time).
-        </p>
+        <p class="mt-2 text-sm">This page will refresh when the portal is back.</p>
       </template>
 
       <div v-if="state.phase !== 'loading' && (state.phase === 'down' || !loadedDuringDowntime)" class="mt-8 border-t border-sistema pt-4 text-[11px] text-slate-400">Error 403 · Service temporarily unavailable</div>

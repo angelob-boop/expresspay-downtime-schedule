@@ -1,6 +1,6 @@
 # ExpressPay Downtime Countdown — UX decisions
 
-Last updated: 2026-10-07
+Last updated: 2026-10-08
 
 ## Context (verified)
 
@@ -24,8 +24,8 @@ Last updated: 2026-10-07
 | 6 | Branding | Portal 2024 brand tokens (`apps/web/src/app/globals.css`): Serbisyo red `#ee2434`, Panatag navy `#1c4199`, Pag-asa sky `#4fbff7`, Tapat bg `#fbfbfb`, Sistema border `#e5e5e5`. ExpressPay wordmark/lockup and "banig" pattern ported from the portal. |
 | 7 | Copy | English. |
 | 8 | Layout | **Option A — card** (`kos/mockups/option-a-card.html`): white card on banig background, logo lockup, H/M/S tiles in navy. |
-| 9 | At 0:00 | If the page was open during the window: "We're back" + full-width **Go to portal** button, no footer. No auto-reload (would loop if the WAF lifts late). |
-| 10 | Outside the window | Page opened for another reason: "Temporarily unavailable — please try again shortly", no countdown. |
+| 9 | At 0:00 | If the page was open during the window: "Almost back — the portal will open automatically", no footer. Every 10 s it `HEAD`s the current URL and reloads once it stops returning 503 (the WAF lifts ~06:45:50, not 06:45:00), so there's no reload loop and deep links are kept. Changed 2026-10-08. |
+| 10 | Outside the window | Page opened for another reason: "Temporarily unavailable — this page will refresh when the portal is back", no countdown; same 10 s check + reload. |
 
 ## Open questions
 
