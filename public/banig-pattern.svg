@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <!-- ExpressPay 2024 brand "banig" pattern (Studio Hibang).
+       Diagonal strands at 45° in the brand palette. Endpoints sit on tile
+       edges at 60px intervals so adjacent tiles continue each strand
+       without breaks. Drawn in two passes: NE→SW first, NW→SE laid over
+       it to suggest the woven crossings of a real banig mat. -->
+  <g fill="none" stroke-linecap="round" stroke-width="14" opacity="0.18">
+    <!-- NE→SW strands: y = -x + c, c ∈ {60, 120, 180, 240, 300, 360, 420} -->
+    <line x1="0"   y1="60"  x2="60"  y2="0"   stroke="#ee2434"/>
+    <line x1="0"   y1="120" x2="120" y2="0"   stroke="#1c4199"/>
+    <line x1="0"   y1="180" x2="180" y2="0"   stroke="#4fbff7"/>
+    <line x1="0"   y1="240" x2="240" y2="0"   stroke="#ee2434"/>
+    <line x1="60"  y1="240" x2="240" y2="60"  stroke="#ee2434"/>
+    <line x1="120" y1="240" x2="240" y2="120" stroke="#1c4199"/>
+    <line x1="180" y1="240" x2="240" y2="180" stroke="#4fbff7"/>
+
+    <!-- NW→SE strands (woven over): y = x + d, d ∈ {-180,-120,-60,0,60,120,180} -->
+    <line x1="180" y1="0"   x2="240" y2="60"  stroke="#1c4199"/>
+    <line x1="120" y1="0"   x2="240" y2="120" stroke="#4fbff7"/>
+    <line x1="60"  y1="0"   x2="240" y2="180" stroke="#ee2434"/>
+    <line x1="0"   y1="0"   x2="240" y2="240" stroke="#1c4199"/>
+    <line x1="0"   y1="60"  x2="180" y2="240" stroke="#1c4199"/>
+    <line x1="0"   y1="120" x2="120" y2="240" stroke="#4fbff7"/>
+    <line x1="0"   y1="180" x2="60"  y2="240" stroke="#ee2434"/>
+  </g>
+</svg>

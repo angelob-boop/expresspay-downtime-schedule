@@ -1,0 +1,24 @@
+@import '@fontsource/montserrat/latin-700.css';
+@import '@fontsource/montserrat/latin-800.css';
+@import '@fontsource/dm-sans/latin-400.css';
+@import '@fontsource/dm-sans/latin-700.css';
+@import 'tailwindcss';
+
+/* Brand tokens from the portal (apps/web/src/app/globals.css). */
+@theme {
+  --color-serbisyo: #ee2434;
+  --color-panatag: #1c4199;
+  --color-pag-asa: #4fbff7;
+  --color-tapat: #fbfbfb;
+  --color-sistema: #e5e5e5;
+
+  --font-heading: 'Montserrat', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+}
+
+.bg-banig {
+  background-color: #fbfbfb;
+  background-image: url('/banig-pattern.svg');
+  background-repeat: repeat;
+  background-size: 240px 240px;
+}

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ExpressPay — Scheduled maintenance (Option C)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-serbisyo: #ee2434; --color-panatag: #1c4199; --color-pag-asa: #4fbff7;
+      --color-tapat: #fbfbfb; --color-sistema: #e5e5e5;
+      --font-heading: "Montserrat", system-ui, sans-serif;
+      --font-body: "DM Sans", system-ui, sans-serif;
+    }
+  </style>
+</head>
+<!-- Option C: split layout. Info + "what this means" on the left, progress ring countdown on the right.
+     Most informative; stacks on mobile. -->
+<body class="min-h-screen bg-tapat font-body text-slate-600">
+  <div class="h-1.5 bg-gradient-to-r from-serbisyo via-panatag to-pag-asa"></div>
+  <main class="mx-auto max-w-5xl px-4 py-10 sm:py-20 grid gap-12 md:grid-cols-2 md:items-center">
+    <section>
+      <svg class="h-12" viewBox="0 0 280 96" role="img" aria-label="ExpressPay — Load, Bayad, Padala, Atbp.">
+        <text x="0" y="46" font-family="Montserrat" font-weight="800" font-size="44" letter-spacing="-1"><tspan fill="#ee2434">Express</tspan><tspan fill="#1c4199">Pay</tspan></text>
+        <text x="252" y="18" font-family="Montserrat" font-weight="600" font-size="13" fill="#1c4199">™</text>
+        <circle cx="9" cy="80" r="9" fill="#ee2434" />
+        <path d="M4.5 80.5 L8 84 L13.5 76.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+        <text x="24" y="86" font-family="DM Sans" font-weight="700" font-size="17" fill="#1c4199">Load, Bayad, Padala, Atbp.</text>
+      </svg>
+
+      <h1 class="mt-10 font-heading text-3xl sm:text-4xl font-bold text-panatag leading-tight">We're under scheduled maintenance</h1>
+      <p class="mt-3">The portal is unavailable every night from <strong class="text-panatag">10:30 PM to 6:45 AM</strong> (Philippine time) while we keep things running smoothly.</p>
+
+      <ul class="mt-8 space-y-3 text-sm">
+        <li class="flex gap-3"><span class="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-serbisyo text-white text-xs">✓</span>Your account, wallet balance and transactions are safe.</li>
+        <li class="flex gap-3"><span class="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-serbisyo text-white text-xs">✓</span>You can log in again once the timer reaches zero.</li>
+        <li class="flex gap-3"><span class="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-serbisyo text-white text-xs">✓</span>Need help? Contact <span class="rounded bg-sistema px-1">[support contact TBD]</span></li>
+      </ul>
+    </section>
+
+    <section class="flex flex-col items-center">
+      <div class="relative size-64 sm:size-72">
+        <svg viewBox="0 0 120 120" class="size-full -rotate-90">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#e5e5e5" stroke-width="8" />
+          <circle id="ring" cx="60" cy="60" r="52" fill="none" stroke="#1c4199" stroke-width="8" stroke-linecap="round"
+                  stroke-dasharray="326.73" stroke-dashoffset="326.73" class="transition-[stroke-dashoffset] duration-1000" />
+        </svg>
+        <div class="absolute inset-0 flex flex-col items-center justify-center" aria-live="polite">
+          <span class="text-xs uppercase tracking-widest text-slate-400">Back in</span>
+          <span class="mt-1 font-heading text-3xl sm:text-4xl font-extrabold text-panatag tabular-nums"><span id="h">--</span>:<span id="m">--</span><span class="text-serbisyo">:</span><span id="s" class="text-pag-asa">--</span></span>
+          <span class="mt-1 text-xs text-slate-400">hrs · min · sec</span>
+        </div>
+      </div>
+      <p class="mt-6 text-sm">Back online at <strong class="text-panatag">6:45 AM</strong></p>
+    </section>
+  </main>
+  <footer class="text-center text-[11px] text-slate-400 pb-6">Error 403 · Service temporarily unavailable</footer>
+  <div id="sim" class="hidden fixed bottom-3 right-3 rounded bg-black/70 px-2 py-1 text-[11px] text-white">Mockup: simulating 1:23 AM</div>
+  <script src="countdown.js"></script>
+  <script>
+    const C = 2 * Math.PI * 52;
+    startCountdown((t) => {
+      h.textContent = t.h; m.textContent = t.m; s.textContent = t.s;
+      ring.style.strokeDashoffset = (C * (1 - t.progress)).toFixed(2); // fills as the night passes
+      sim.classList.toggle("hidden", !t.simulated);
+    });
+  </script>
+</body>
+</html>
